@@ -53,12 +53,16 @@
 
 <body>
 
+  <!-- 隐藏的音频元素 -->
+  <audio id="bgMusic" loop>
+    <source src="./咱们结婚吧.mp3" type="audio/mpeg">
+    您的浏览器不支持音频播放。
+  </audio>
 
   <canvas id="pinkboard"></canvas>
-
   <div class="title">魏亚亚❤薛旭升</div>
-  <script>
 
+  <script>
     var settings = {
       particles: {
         length: 500,
@@ -133,7 +137,6 @@
       return Particle;
     })();
 
-
     var ParticlePool = (function () {
       var particles,
         firstActive = 0,
@@ -193,7 +196,6 @@
       };
       return ParticlePool;
     })();
-
 
     (function (canvas) {
       var context = canvas.getContext('2d'),
@@ -283,7 +285,22 @@
     })(document.getElementById('pinkboard'));
   </script>
 
+  <script>
+    const audio = document.getElementById('bgMusic');
+    audio.volume = 0.3;
+    setTimeout(() => {
+      audio.play().catch(function (error) {
+        console.log('背景音乐播放被阻止:', error);
+        alert('请点击空白处以播放背景音乐。');
+      });
+    }, 1000);
 
+    document.addEventListener('click', () => {
+      audio.play().catch(function (error) {
+        console.log('播放被阻止:', error);
+      });
+    });
+  </script>
 
 </body>
 
