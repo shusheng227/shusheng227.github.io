@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的相册</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        html {
+            height: 50px;
+	        background-color: black;
+        }
+        body {
+            height: 100%;
+        }
+        text {
+            font-family: "微软雅黑";
+        }
+    </style>
+    <link rel="stylesheet" href="./css/main.css">
+</head>
+
+<body>
+    <div id="headline">
+        <h1>我的相册</h1>
+    </div>
+    <div id="gallery">
+        <div id="display"></div>
+        <div id="menu">
+            <ul>
+                <li>
+                    <span><img src="img/pic1.jpg" /></span>
+                </li>
+
+                <li>
+                    <span><img src="img/pic2.jpg" /></span>
+                </li>
+
+                <li>
+                    <span><img src="img/pic3.jpg" /></span>
+                </li>
+
+                <li>
+                    <span><img src="img/pic4.jpg" /></span>
+                </li>
+
+                <li>
+                    <span><img src="img/pic5.jpg" /></span>
+                </li>
+            </ul>
+
+        </div>
+        <p class="clearfix"></p>
+    </div>
+</body>
+
+</html>
+
+<!-- 参考
+ - https://www.muzhuangnet.com/show/55025.html :
+   使用relative定位调整图片的位置，使用 hover 代替 click 事件，在不使用 js 的情况下实现相册功能 -->

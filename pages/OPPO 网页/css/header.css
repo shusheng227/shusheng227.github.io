@@ -1,0 +1,52 @@
+/* 设置页面头部的样式 */
+#header{
+    height: 30px;
+    background-color: black;
+}
+#header .xlwb{
+    width: 20px;
+    height: 17px;
+    background: url("../img/xlwb.png") no-repeat;
+}
+#header .txwb{
+    width: 20px;
+    height: 17px;
+    background: url("../img/txwb.png") no-repeat;
+}
+#header .tel{
+    margin: 5px 5px;
+    color: rgba(250, 252, 250, 0.795);
+}
+#header .header_left div{
+    /* 使左边的图标向左浮动，显示在一行 */
+    float: left;
+    margin: 5px 5px;
+}
+#header ul li{
+    /* 使右边的功能模块向左浮动，显示在一行 */
+    float: left;
+    margin: 4px 5px 5px 5px;
+}
+#header li a{
+    color: #B2B2B2;
+    font-size: 14px;
+    /* 添加边框作为两个元素之间的竖线 */
+    border-right: 1px solid #B2B2B2;
+    padding-right: 8px;
+}
+#header li a:hover{
+    color: rgba(3, 182, 3, 0.849);
+}
+#header .shop_car a{
+    /* 去掉购物车右边的边框 */
+    border: none;
+}
+#header .shop_car span{
+    /* 购物车图标 */
+    width: 20px;
+    height: 20px;
+    margin-bottom: 5px;
+    display: inline-block;
+    vertical-align: middle;
+    background: url("../img/shop_car.png") no-repeat;
+}

@@ -1,0 +1,141 @@
+/* 精选配件部分样式 */
+#accessory{
+    height: 950px;
+    background-color: #f6f6f6;
+    overflow: hidden;
+}
+/* 链接鼠标悬停变色效果 */
+#accessory a:hover{
+    color: #00925F;
+}
+
+/* 顶部文字图片样式 */
+#accessory .acc_top{
+    text-align: center;
+    margin: 30px auto;
+}
+#accessory .acc_top img{
+    width: 450px;
+    height: 35px;
+}
+
+/* 主干部分样式 */
+#accessory .acc_main{
+    width: 1280px;
+    margin: 10px auto;
+}
+
+/* 左边所有元素统一样式 */
+#accessory .acc_left{
+    width: 540px;
+    height: 850px;
+    /* border: 2px solid #000; */
+}
+#accessory .acc_left div{
+    float: left;
+    border-bottom: 3px solid #EAEAEA;
+    margin: 10px;
+    transition: all .3s;
+}
+#accessory .acc_left div:hover{
+    /* 上移特效 */
+    border-bottom: 3px solid #00925F;
+    transform: translateY(-10px);
+}
+
+/* 左边图片样式 */
+#accessory .protect-holster img{
+    width: 250px;
+    height: 480px;
+    background-color: white;
+}
+#accessory .adapter img{
+    width: 250px;
+    height: 250px;
+    background-color: white;
+}
+#accessory .cable img{
+    width: 520px;
+    height: 300px;
+    background-color: white;
+}
+
+/* 全部配件样式 */
+#accessory .acc_all{
+    width: 250px;
+    height: 220px;
+    border: 3px solid #EAEAEA;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: white;
+    /* 统一文字大小 */
+    font-size: 14px;
+}
+#accessory .acc_all p:first-child{
+    text-align: center;
+    font-weight: bold;
+    /* font-size: 14px; */
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+}
+#accessory .acc_all li{
+    float: left;
+    width: 102px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    /* font-size: 14px; */
+}
+#accessory .acc_all .line{
+    width: 150px;
+    height: 0;
+    border: 1px solid #ccc;
+    /* 清除浮动 */
+    clear: both;
+    margin: 10px auto;
+}
+#accessory .acc{
+    text-align: center;
+    margin-top: 10px;
+    clear: both;
+}
+#accessory .acc span{
+    width: 14px;
+    height: 14px;
+    display: inline-block;
+    vertical-align: middle;
+    background: url("../img/icon-buy.png") no-repeat;
+    background-size: 14px 14px;
+    margin-left: 10px;
+}
+
+/* 右边统一样式 */
+#accessory .acc_right{
+    width: 720px;
+    height: 850px;
+    /* border: 1px solid #000; */
+}
+#accessory .acc_right div{
+    float: left;
+    border-bottom: 3px solid #EAEAEA;
+    margin: 20px;
+    transition: all .3s;
+}
+#accessory .acc_right div:hover{
+    /* 上移特效 */
+    border-bottom: 3px solid #00925F;
+    transform: translateY(-10px);
+}
+
+/* 右边图片样式 */
+#accessory .acc_right_1 img{
+    width: 680px;
+    height: 300px;
+    background-color: white;
+}
+#accessory .acc_right_2 img{
+    width: 250px;
+    height: 400px;
+    background-color: white;
+    margin: 20px;
+}

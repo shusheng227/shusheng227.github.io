@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>爱情魔方</title>
+    <style type="text/css">
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            background: radial-gradient(circle, rgba(255, 0, 0, 0.507), rgba(0, 0, 255, 0.452));
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="JS/addPic.js"></script>
+</head>
+
+<body>
+    <!-- 容器 -->
+    <div id="container">
+        <div id="box" class="box" onclick="stopFly()" ondblclick="replay()" oncontextmenu="stopRotate()">
+            <div class="box-page top"></div>
+            <div class="box-page bottom"></div>
+            <div class="box-page left"></div>
+            <div class="box-page right"></div>
+            <div class="box-page before"></div>
+            <div class="box-page after"></div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        // 向魔方六个面上添加图片
+        addPic(".box-page");
+        // 阻止右击事件的默认效果
+        document.oncontextmenu = function(e){
+            e.preventDefault();
+        };
+    </script>
+</body>
+</html>

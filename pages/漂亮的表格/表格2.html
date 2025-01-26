@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>表格测试</title>
+    <link rel="stylesheet" href="css/table2.css">
+</head>
+<body>
+    <table id="tb1">
+        <tr>
+            <th></th>
+            <th>学生数</th>
+            <th>平均成绩</th>
+        </tr>
+        <tr>
+            <th>一班</th>
+            <td>30</td>
+            <td>89</td>
+        </tr>
+        <tr>
+            <th>二班</th>
+            <td>25</td>
+            <td>92</td>
+        </tr>
+        <tr>
+            <th>三班</th>
+            <td>25</td>
+            <td>92</td>
+        </tr>
+        <tr>
+            <th>四班</th>
+            <td>25</td>
+            <td>92</td>
+        </tr>
+    </table>
+    <script>
+        // 添加 JavaScript 代码，用一个 <div> 把表格包裹起来，
+        // 父元素宽度不足时显示横向滚动条，避免表格撑破布局
+        [].slice.call(document.querySelectorAll('tb1')).forEach(function(el){
+            var wrapper = document.createElement('div');
+            wrapper.className = 'table-area';
+            el.parentNode.insertBefore(wrapper, el);
+            el.parentNode.removeChild(el);
+            wrapper.appendChild(el);
+        })
+    </script>
+</body>
+</html>

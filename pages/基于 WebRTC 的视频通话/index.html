@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>视频通话</title>
+
+    <style>
+        div#container {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 300;
+            word-break: break-word;
+            margin: 0 auto 0 auto;
+            max-width: 60em;
+            padding: 1em 1.5em 1.3em 1.5em;
+        }
+
+        video#localVideo {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 300;
+            word-break: break-word;
+            background: #222;
+            --width: 45%;
+            width: var(--width);
+            height: calc(var(--width) * 0.75);
+            vertical-align: top;
+            margin: 0 20px 20px 0;
+        }
+
+        video#remoteVideo {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 300;
+            word-break: break-word;
+            background: #222;
+            --width: 45%;
+            width: var(--width);
+            height: calc(var(--width) * 0.75);
+            margin: 0 0 20px 0;
+            vertical-align: top;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <video id="localVideo" playsinline="" muted="" loop="loop">
+            <source id="localSource" src="./source/frag_bunny.mp4" type="video/mp4">
+        </video>
+        <video id="remoteVideo" playsinline="" muted=""
+            poster="./source/anime1.jpg">
+        </video>
+
+        <div class="box">
+            <button id="startButton" disabled="">Start</button>
+            <button id="callButton" disabled="">Call</button>
+            <button id="hangupButton" disabled="">Hang Up</button>
+        </div>
+    </div>
+
+    <script src="main.js" async></script>
+</body>
+</html>

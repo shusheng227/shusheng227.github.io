@@ -1,0 +1,98 @@
+a {
+    text-decoration: none;
+}
+
+.clearfix:after {
+    content: "";
+    display: block;
+    height: 0;
+    visibility: hidden;
+    clear: both;
+}
+.clearfix {
+    *zoom: 1;
+}
+
+.content {
+    width: 900px;
+    height: 500px;
+    margin: 150px auto 0 auto;
+    border-radius: 10px;
+    background-color: rgba(236, 236, 236, 0.59);
+    transition: all 1.0s;
+}
+.content img {
+    float: left;
+    width: 200px;
+    height: 200px;
+    margin: 150px 0 0 80px;
+    border-radius: 100px;
+}
+.content:hover {
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.52);
+}
+.content_r {
+    float: right;
+    width: 500px;
+    margin: 80px 60px 0 0;
+    /*    background-color: pink;*/
+}
+
+.introduction {
+    float: left;
+    width: 100%;
+    text-align: center;
+}
+.introduction h5 {
+    font-size: 17px;
+}
+
+.cc {
+    margin-top: 10px;
+    color: #1F2023;
+    font-size: 18px;
+}
+
+.link {
+    margin-top: 30px;
+}
+
+.link a {
+    display: block;
+    float: left;
+    width: 120px;
+    height: 45px;
+    margin: 5px 5px 0 0;
+    color: #fff;
+    line-height: 45px;
+    transition: all 0.8s;
+}
+.link a:hover {
+    background-color: rgba(0, 201, 243, 0.35);
+}
+
+
+.navy_blue {
+    color: #4855EC;
+    font-size: 18px;
+}
+
+.deeppink {
+    color: deeppink;
+}
+
+.deeppink_bg {
+    background-color: deeppink;
+}
+
+.dodgerblue_bg {
+    background-color: dodgerblue;
+}
+
+.magenta_bg {
+    background-color: magenta;
+}
+
+.orange_bg {
+    background-color: orange;
+}

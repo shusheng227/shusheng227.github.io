@@ -1,0 +1,191 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+template {
+    display: none;
+    /* IE support */
+}
+body {
+    font-family: 'Raleway', sans-serif;
+    /* font-family: Georgia, serif; */
+    color: #101096;
+}
+
+header {
+    background-color: #7dd8d6;
+    padding: .5em 1em;
+}
+
+footer {
+    background-color: #7dd8d6;
+    padding: .5em;
+    clear: both;
+    margin: 0;
+}
+
+main {
+    background-color: #66FFB2;
+    width: 100%;
+    box-sizing: border-box;
+    order: 2;
+    padding: .5em;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    min-width: 20em;
+}
+
+.left, .right {
+    background-color: #49b4e7;
+    box-sizing: border-box;
+    padding: .5em;
+    margin: 0;
+    width: 100%;
+}
+.left {
+    order: 1;
+}
+.right {
+    order: 3
+}
+.left ul {
+    list-style: none;
+    padding: 0;
+}
+.left li {
+    padding: .2em;
+    display: inline-block;
+}
+
+@media screen and (min-width: 700px) {
+    .content {
+        display: block;
+        height: calc(100vh - 8em);
+        overflow-y: hidden;
+        margin: 0;
+    }
+    main {
+        position: relative;
+        float: left;
+        width: 100%;
+        padding: .2em 13.5em;
+        height: 100%;
+    }
+    .left {
+        position: relative;
+        float: left;
+        margin-left: -100%;
+        width: 12.5em;
+        height: 100%;
+    }
+    .right {
+        position: relative;
+        float: right;
+        margin-left: -100%;
+        width: 12.5em;
+        height: 100%;
+    }
+    .left li {
+        display: block;
+    }
+    header {
+        height: 6em;
+    }
+    footer {
+        height: 2em;
+    }
+}
+
+.playground {
+    /* background: #eee; */
+    padding: 4rem 4rem;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+.playground::after {
+    clear: both;
+    content: "";
+    display: table;
+}
+
+.card {
+    display: inline-block;
+    float: left;
+    /** optional, better alignment for multi-row use cases -> or use flexbox */
+
+    background: #fff;
+    width: 250px;
+    height: 250px;
+    box-shadow: 0 0 2px 0 rgba(0, 0, 0, .15), 0 0 4px 0 rgba(0, 0, 0, .2), 0 12px 12px 0 rgba(0, 0, 0, .15);
+    margin: 0.5rem 1rem;
+    transition: box-shadow .2s ease-in-out;
+}
+.card[draggable=true] {
+    cursor: move;
+}
+.card[draggable=false] {
+    cursor: not-allowed;
+}
+.card:hover {
+    box-shadow: 0 0 18px 0 rgba(0, 0, 0, .1), 0 0 36px 0 rgba(0, 0, 0, .15), 0 36px 36px 0 rgba(0, 0, 0, .2);
+}
+.card.moving {
+    box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0), 0 0 4px 0 rgba(0, 0, 0, 0), 0 12px 12px 0 rgba(0, 0, 0, 0);
+}
+.card > a {
+    text-decoration: none;
+}
+.card > img {
+    padding: 0;
+    margin: 0;
+    width: 250px;
+    height: 150px;
+}
+
+.card-text {
+    padding: 0.75rem;
+}
+.card-text > h3 {
+    margin: 0 0 0.25rem 0;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: color .2s ease-in-out;
+}
+.card-text > h3:hover {
+    color: green;
+}
+.card-text > span {
+    margin: 0;
+    font-size: 0.8125rem;
+    line-height: 1rem;
+    font-weight: 200;
+}
+.card-placeholder {
+    position: fixed;
+    display: inline-block;
+    background: #ddd;
+}
+.card-head {
+    background: #eee;
+    padding: 2.5rem 1rem;
+    text-align: center;
+    font-family: Menlo, "Courier New";
+    position: relative;
+}
+.author {
+    position: absolute;
+    display: inline-block;
+    right: 1rem;
+    bottom: -25px;
+    border-radius: 50px;
+}

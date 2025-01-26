@@ -1,0 +1,408 @@
+<!-- 原文: https://blog.csdn.net/u013343616/article/details/122233674 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新年烟花</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        .city {
+            width: 100%;
+            position: fixed;
+            bottom: 0px;
+            z-index: 100;
+        }
+        .city img{
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<div style="width:100%; height: 100%;">
+    <canvas id='canvas' style="background-color:rgba(0,5,24,1);">浏览器不支持canvas</canvas>
+    <div class="city">
+        <img src="img/city.png"/>
+	</div>
+	<!-- 月亮的位置需要根据 canvas 调整 -->
+    <img src="img/moon.png" alt="" id="moon" style="visibility: hidden;"/>
+    <div style="display:none">
+        <div class="shape">新年快乐</div>
+        <div class="shape">合家幸福</div>
+        <div class="shape">万事如意</div>
+        <div class="shape">心想事成</div>
+        <div class="shape">财源广进</div>
+    </div>
+</div>
+<script>
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = 700;
+    // 保存所有烟花对象的数组，每次动画时会遍历该数组更新所有的烟花状态
+    // 每隔500ms添加一个随机烟花，爆炸后从数组清除
+    var booms = [];
+
+    // 幕后的一个cavas，用于模拟计算文案像素的位置
+    var ocas = document.createElement("canvas");
+    var octx = ocas.getContext("2d");
+    ocas.width = canvas.width;
+    ocas.height = canvas.height;
+
+	// 覆写 Array 的 foreach 属性
+    Array.prototype.foreach = function(callback) {
+        for(var i = 0; i < this.length; i++){
+            if(this[i] !== null) callback.apply(this[i], [i])
+        }
+	}
+
+    // 元素element就绪后调用fun函数
+	function callOnComplete(element, fun) {
+		if (element.complete) {
+            fun();
+        } else {
+            element.onload = function() {
+                fun();
+            }
+        }
+    }
+
+    // 获取[a, b]区间的一个随机数
+    function getRandom(a , b){
+        return Math.random()*(b-a)+a;
+    }
+
+    window.onload = function(){
+        drawStars();
+        drawMoon();
+        lastTime = new Date();
+        animate();
+        displayText();
+    }
+
+    // 绘制星星
+    var maxRadius = 1 , stars=[];
+    function drawStars(){
+        for(var i=0; i<100; i++){
+            var r = Math.random() * maxRadius;
+            var x = Math.random() * canvas.width;
+            var y = Math.random() * 2 * canvas.height - canvas.height;
+            var star = new Star(x , y , r);
+            stars.push(star);
+            star.paint()
+        }
+    }
+
+	// 星星类定义
+    var Star = function(x, y, r) {
+        this.x = x;
+        this.y = y;
+        this.r = r;
+    }
+    Star.prototype = {
+        paint:function() {
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.r, 0 , 2 * Math.PI);
+            ctx.fillStyle = "rgba(255,255,255," + this.r + ")";
+            ctx.fill();
+            ctx.restore();
+        }
+    }
+    // 绘制星星
+
+    // 绘制月亮
+    function drawMoon() {
+		var page_width = document.body.clientWidth;
+		var page_height = document.body.clientHeight;
+        var moon = document.getElementById("moon");
+        var centerX = canvas.width - page_width / 8;
+        var centerY = page_height / 10;
+		var radius = Math.min(page_width, page_height) / 20;
+		callOnComplete(moon, function() {
+			ctx.drawImage(moon, centerX, centerY, radius * 2, radius * 2);
+		});
+		// 绘制月亮的光晕
+		// 叠加绘制，呈现透明度向边缘递增的效果
+        for(var index = 0; index < 20;){
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(centerX + radius, centerY + radius, radius + index, 0, 2 * Math.PI);
+            ctx.fillStyle="rgba(240, 219, 120, 0.005)";
+            index += 2;
+            ctx.fill();
+            ctx.restore();
+        }
+    }
+    // 绘制月亮
+
+    // 火花（烟花爆炸时散开的火花）类定义
+    var Spark = function(centerX, centerY, radius, color, tx, ty){
+        this.tx = tx;
+        this.ty = ty;
+        this.x = centerX;
+        this.y = centerY;
+        this.dead = false;
+        this.centerX = centerX;
+        this.centerY = centerY;
+        this.radius = radius;
+        this.color = color;
+    }
+    Spark.prototype = {
+        paint:function(){
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, 2*Math.PI);
+            ctx.fillStyle = "rgba("+this.color.r+","+this.color.g+","+this.color.b+",1)";
+            ctx.fill()
+            ctx.restore();
+        },
+        moveTo:function(index){
+            this.ty = this.ty+0.3;
+            var dx = this.tx - this.x , dy = this.ty - this.y;
+            this.x = Math.abs(dx)<0.1 ? this.tx : (this.x+dx*0.1);
+            this.y = Math.abs(dy)<0.1 ? this.ty : (this.y+dy*0.1);
+            if(dx == 0 && Math.abs(dy) <= 80){
+                this.dead = true;
+            }
+            this.paint();
+        }
+    }
+
+    // 烟花类定义
+    // Boom 只绘制爆炸前的发射效果，爆炸后 dead 状态为 true
+    // 爆炸后的效果由 Spark 绘制
+    // shape：烟花或者文字（class 为 ".shape" 的矩形 div 元素）
+    // sparks：所有火花的集合
+    // x, y：烟花显示中心位置
+    // r：
+    // c：烟花颜色
+    // boomArea：烟花爆炸区域
+	var Boom = function(x, r, c, boomArea, shape) {
+        this.sparks = [];
+        this.x = x;
+        this.y = (canvas.height+r);
+        this.r = r;
+        this.c = c;
+        this.shape = shape || false;
+        this.boomArea = boomArea;
+        this.theta = 0;
+        this.dead = false;
+        this.ba = parseInt(getRandom(80 , 200));
+    }
+    Boom.prototype = {
+        _paint:function(){
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
+            ctx.fillStyle = this.c;
+            ctx.fill();
+            ctx.restore();
+        },
+		// 发射烟花，如果到达指定位置就爆炸
+        _move:function(){
+			var dx = this.boomArea.x - this.x;
+			var dy = this.boomArea.y - this.y;
+            this.x = this.x+dx*0.01;
+            this.y = this.y+dy*0.01;
+            if(Math.abs(dx) <= this.ba && Math.abs(dy) <= this.ba){
+                if(this.shape){
+                    this._shapBoom();
+                } else {
+					this._boom();
+				}
+                this.dead = true;
+            } else {
+                this._paint();
+            }
+        },
+        // 装饰烟花发射时的拖尾
+        _drawLight:function(){
+            ctx.save();
+            ctx.fillStyle = "rgba(255,228,150,0.3)";
+            ctx.beginPath();
+            ctx.arc(this.x , this.y , this.r+3*Math.random()+1, 0, 2*Math.PI);
+            ctx.fill();
+            ctx.restore();
+		},
+		// 烟花爆炸
+        _boom:function(){
+            var sparkNum = getRandom(30, 200);			// 火花数量，最少30个，最多200个
+            var style = getRandom(0, 10) >= 5 ? 1 : 2;	// 烟花火花样式：1. 所有火花颜色相同；2. 所有火花颜色随机
+            var color;
+            if(style == 1){
+                color = {
+                    r:parseInt(getRandom(128, 255)),
+                    g:parseInt(getRandom(128, 255)),
+                    b:parseInt(getRandom(128, 255))
+                }
+            }
+            var fanwei = parseInt(getRandom(300, 400));
+            for(var i=0; i < sparkNum; i++){
+                if(style == 2){
+                    color = {
+                        r:parseInt(getRandom(128,255)),
+                        g:parseInt(getRandom(128,255)),
+                        b:parseInt(getRandom(128,255))
+                    }
+                }
+                var a = getRandom(-Math.PI, Math.PI);
+                var x = getRandom(0, fanwei) * Math.cos(a) + this.x;
+                var y = getRandom(0, fanwei) * Math.sin(a) + this.y;
+                var radius = getRandom(0, 2);
+                var spark = new Spark(this.x , this.y , radius, color, x, y);
+                this.sparks.push(spark);
+            }
+        },
+        _shapBoom:function(){
+            var that = this;
+            putValue(ocas, octx, this.shape, 5, function(dots){
+                var dx = canvas.width / 2 - that.x;
+                var dy = canvas.height / 2 - that.y;
+                console.log("获取到文案像素点：", dots)
+                for(var i=0; i<dots.length; i++){
+                    color = {r:dots[i].r, g:dots[i].g, b:dots[i].b}
+                    var x = dots[i].x;
+                    var y = dots[i].y;
+                    var radius = 1;
+                    var spark = new Spark(that.x, that.y, radius, color, x-dx, y-dy);
+                    that.sparks.push(spark);
+                }
+            })
+        }
+    }
+
+	// 使用 window.requestAnimationFrame 请求更新帧，
+	// 如果浏览器不支持，使用定时器以 60 帧频率更新画布
+	var raf = window.requestAnimationFrame || window.webkitRequestAnimationFrame
+		|| window.mozRequestAnimationFrame || window.oRequestAnimationFrame
+		|| window.msRequestAnimationFrame || function (callback) { window.setTimeout(callback, 1000 / 60); };
+    var lastTime;
+    function animate() {
+        ctx.save();
+        ctx.fillStyle = "rgba(0,5,24,0.1)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.restore();
+        var newTime = new Date();
+		// 每隔 500ms 向数组添加一个烟花
+        if(newTime - lastTime > 500) {
+            var x = getRandom(canvas.width/5 , canvas.width*4/5);
+            var y = getRandom(50 , 200);
+            var boom = new Boom(getRandom(canvas.width/3,canvas.width*2/3), 2, "#FFF", {x:x , y:y});
+            booms.push(boom);
+            lastTime = newTime;
+        }
+
+		// 画布会一直清理，所以每一帧需要重复绘制星星和月亮
+        stars.foreach(function(){
+            this.paint();
+		})
+        drawMoon();
+
+        // 删除数组中的空元素，避免数组容量无限增加
+        var num_empty = 0;  // 已消费的烟花数量
+        for (var index = 0; index < booms.length; index++) {
+            if (booms[index] == null) {
+                num_empty++;
+            } else {
+                // 将烟花前移，覆盖掉最前面已经消费的烟花
+                booms[index - num_empty] = booms[index];
+            }
+        }
+        while (num_empty > 0) {
+            booms.pop();
+            num_empty--;
+        }
+
+        // console.log(booms)
+
+		// 绘制所有积攒的烟花
+        booms.foreach(function(index){
+            var that = this;
+            if (this.shape) {
+                console.log("绘制文案", this);
+            }
+            if(!this.dead){
+                this._move();
+                this._drawLight();
+            } else {
+                this.sparks.foreach(function(index){
+                    if(!this.dead) {
+                        this.moveTo(index);
+                    } else if(index == that.sparks.length-1){
+                        booms[booms.indexOf(that)] = null;
+                    }
+                })
+            }
+		});
+
+        raf(animate);
+    }
+
+    // 每隔5s向队列添加一条文案
+    var index = 0;
+    function displayText() {
+        var fn = function() {
+            var shape = document.querySelectorAll(".shape")[parseInt(index++)];
+            var boom = new Boom(
+                    getRandom(canvas.width/3, canvas.width*2/3),
+                    2, "#FFF", {x: canvas.width/2, y:200}, shape);
+            booms.push(boom);
+            console.log("添加文案：" + shape.innerHTML);
+            console.log(booms);
+        }
+        var shape =  document.querySelectorAll(".shape");
+        for (var i = 0; i < shape.length; i++) {
+            window.setTimeout(fn, 5000 * (i + 1));
+        }
+    }
+
+	// 点击画布时会生成一个飞向该点的烟花，添加到数组，下一帧到来时绘制
+    canvas.onclick = function(){
+        var x = event.clientX;
+        var y = event.clientY;
+        var boom = new Boom(getRandom(canvas.width / 3, canvas.width * 2 / 3), 2, "#FFF", {x:x , y:y});
+        booms.push(boom)
+    }
+
+	function putValue(canvas, context, ele, dr, callback) {
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        var text = ele.innerHTML;
+        console.log("获取文案像素点：" + text);
+        context.save();
+        context.font = "200px 宋体 bold";
+        context.textAlign = "center";
+        context.textBaseline = "middle";
+        context.fillStyle = "rgba("+parseInt(getRandom(128,255))+","+parseInt(getRandom(128,255))+","+parseInt(getRandom(128,255))+" , 1)";
+        context.fillText(text, canvas.width/2, canvas.height/2);
+        context.restore();
+        dots = getimgData(canvas, context, dr);
+        callback(dots);
+    }
+
+    function getimgData(canvas, context, dr){
+        var imgData = context.getImageData(0, 0, canvas.width, canvas.height);
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        var dots = [];
+        for (var x = 0; x < imgData.width; x += dr) {
+            for (var y=0; y < imgData.height; y += dr) {
+                var i = (y * imgData.width + x) * 4;
+                if(imgData.data[i+3] > 128){
+                    var dot = {x:x, y:y, r:imgData.data[i], g:imgData.data[i+1], b:imgData.data[i+2]};
+                    dots.push(dot);
+                }
+            }
+        }
+        return dots;
+    }
+
+</script>
+
+</body>
+</html>
+

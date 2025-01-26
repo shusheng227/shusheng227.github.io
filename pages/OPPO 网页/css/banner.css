@@ -1,0 +1,11 @@
+/* banner部分样式 */
+#banner{
+    height: 630px;
+    background-color: #EEEEEE;
+    margin: 0px auto;
+}
+
+#banner img{
+    width: 1280px;
+    height: 600px;
+ }

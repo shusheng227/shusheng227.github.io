@@ -1,0 +1,56 @@
+#container{
+    background-color: rgba(245, 245, 245, 0);
+    width: 800px;
+    height: 400px;
+    margin: 200px auto;
+    /* overflow: hidden; */
+    /* 调整视距 */
+    perspective: 20000px;
+}
+#box{
+    background-color: rgba(245, 245, 245, 0);
+    width: 200px;
+    height: 150px;
+    margin: 100px 250px;
+    position: absolute;
+    /* 控制子元素保持3D转换 */
+    transform-style: preserve-3d;
+    /* 测试 */
+    transform: rotateX(-20deg) rotateY(0deg);
+}
+img{
+    width: 200px;
+    height: 150px;
+    border: 1px solid yellow;
+    /* 位置初始化 */
+    position: absolute;
+    transform-style: preserve-3d;
+}
+.image{
+    width: 200px;
+    height: 150px;
+    /* 位置初始化 */
+    position: absolute;
+    transform-style: preserve-3d;
+}
+.a0{
+    background-color: red;
+}
+.a1{
+    background-color: green;
+}
+.a2{
+    background-color: orange;
+}
+.a3{
+    background-color: pink;
+}
+.a4{
+    background-color: blue;
+}
+.a5{
+    background-color: yellow;
+}
+/* html{
+    background: radial-gradient(rgba(20, 20, 20, 0.733) 60%, rgba(20, 20, 20, 0.199));
+} */

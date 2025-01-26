@@ -1,0 +1,99 @@
+#container{
+    width: 150px;
+    height: 150px;
+    border: 1px solid rgba(255, 255, 255, 0);
+    margin: 300px auto;
+    /* 调整视距 */
+    perspective: 20000px;
+}
+.box{
+    width: 150px;
+    height: 150px;
+    /* 控制子元素保持3D转换 */
+    transform-style: preserve-3d;
+    animation: ro 10s linear infinite;
+    /* transform: rotateX(45deg) rotateY(45deg); */
+}
+.box-page{
+    width: 150px;
+    height: 150px;
+    /* 位置初始化 */
+    position: absolute;
+    transform-style: preserve-3d;
+}
+.top{
+    /* background-color: red; */
+    transform: translateZ(75px);
+}
+.bottom{
+    /* background-color: green; */
+    transform: translateZ(-75px) rotateX(180deg);
+}
+.left{
+    /* background-color: orange; */
+    transform: translateX(-75px) rotateY(-90deg);
+}
+.right{
+    /* background-color: pink; */
+    transform: translateX(75px) rotateY(90deg);
+}
+.before{
+    /* background-color: blue; */
+    transform: translateY(75px) rotateX(-90deg);
+}
+.after{
+    /* background-color: yellow; */
+    transform: translateY(-75px) rotateX(90deg);
+}
+.play{
+    /* 开始动画 */
+    /* animation-play-state: running; */
+    animation: a1 4.5s ease-in;
+}
+.pause{
+    /* 停止动画 */
+    animation-play-state: paused;
+}
+.replay{
+    animation: a2 4.5s ease-in;
+}
+
+/* 定义动画 */
+/* 旋转效果 */
+@keyframes ro{
+    0%{
+        transform: rotateX(0deg) rotateY(0deg);
+    }
+    100%{
+        transform: rotateX(360deg) rotateY(360deg);
+    }
+}
+/* 飞出效果 */
+@keyframes a1{
+    0%{
+        transform: translateZ(0px) scale(1) rotateZ(0deg);
+    }
+    20%{
+        transform: translateZ(300px) scale(0) rotateZ(720deg);
+    }
+    90%{
+        transform: translateZ(300px) scale(0) rotateZ(720deg);
+    }
+    100%{
+        transform: translateZ(0px) scale(1) rotateZ(0deg);
+    }
+}
+@keyframes a2{
+    0%{
+        transform: translateZ(0px) scale(1) rotateZ(0deg);
+    }
+    20%{
+        transform: translateZ(300px) scale(0) rotateZ(720deg);
+    }
+    90%{
+        transform: translateZ(300px) scale(0) rotateZ(720deg);
+    }
+    100%{
+        transform: translateZ(0px) scale(1) rotateZ(0deg);
+    }
+}

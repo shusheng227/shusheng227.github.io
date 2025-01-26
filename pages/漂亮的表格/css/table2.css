@@ -1,0 +1,65 @@
+/* 基本样式  */
+#tb1 {
+    width: 100%; /*表格宽度*/
+    max-width: 30em; /*表格最大宽度，避免表格过宽*/
+    border: 1px solid #dedede; /*表格外边框设置*/
+    margin: 15px auto; /*外边距*/
+    border-collapse: collapse; /*使用单一线条的边框*/
+    empty-cells: show; /*单元格无内容依旧绘制边框*/
+}
+#tb1 th,
+#tb1 td {
+    text-align: center;
+  height: 35px; /*统一每一行的默认高度*/
+  border: 1px solid #dedede; /*内部边框样式*/
+  padding: 0 10px; /*内边距*/
+}
+/* 表头样式  */
+#tb1 th {
+    font-weight: bold; /*加粗*/
+    text-align: center !important; /*内容居中，加上 !important 避免被 Markdown 样式覆盖*/
+    background-color: rgba(158,188,226,0.2); /*背景色*/
+    white-space: nowrap; /*表头内容强制在一行显示*/
+}
+
+/* 表格第一列单元格内容不换行，多数情况下表格首列不应该被压缩换行 */
+#tb1 td:nth-child(1) {
+    white-space: nowrap; 
+}
+/* 鼠标悬浮时该行改变背景色 */
+#tb1 tbody tr:hover:nth-child(even) {
+    background-color: rgba(190, 199, 192, 0.589); 
+}
+#tb1 tbody tr:hover:nth-child(odd) {
+    background-color: rgba(190, 199, 192, 0.589);
+}
+/* 隔行变色  */
+#tb1 tbody tr:nth-child(even) {
+    background: rgba(158,188,226,0.12); 
+}
+
+
+#tb2 tr{
+    background-color: #fff0f5;
+}
+/*奇数行样式*/
+#tb2 tr:nth-child(odd){
+    background-color: #fffafa;
+}
+#tb2 tr:hover{
+    background-color: #ffe4e1;
+    -webkit-transition: all .3s;
+    -moz-transition: all .3s;
+    -ms-transition: all .3s;
+    -o-transition: all .3s;
+    transition: all .3s;
+}
+/*奇数行样式*/
+#tb2 tr:hover:nth-child(odd){
+    background-color: #fff8dc;
+    -webkit-transition: all .3s;
+    -moz-transition: all .3s;
+    -ms-transition: all .3s;
+    -o-transition: all .3s;
+    transition: all .3s;
+}

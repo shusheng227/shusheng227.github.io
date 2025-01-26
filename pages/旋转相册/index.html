@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>旋转相册</title>
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <script src="js/layer.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            background-color:rgba(0, 0, 0, 0.993);
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="box">
+            <div class="image a0"><img src="img/a0.jpg" alt=""></div>
+            <div class="image a1"><img src="img/a1.jpg" alt=""></div>
+            <div class="image a2"><img src="img/a2.jpg" alt=""></div>
+            <div class="image a3"><img src="img/a3.jpg" alt=""></div>
+            <div class="image a4"><img src="img/a4.jpg" alt=""></div>
+            <div class="image a5"><img src="img/a5.jpg" alt=""></div>
+        </div>
+    </div>
+    <script>
+        layer();
+        window.onload = drag();
+    </script>
+</body>
+</html>

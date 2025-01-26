@@ -1,0 +1,29 @@
+/* 设置导航栏样式 */
+#nav{
+    height: 70px;
+    /* width: 1280px; */
+    background-color: #EEEEEE;
+    clear: both;
+}
+#nav li{
+    float: left;
+    margin: 0px 15px;
+    /* 使文字垂直居中 */
+    line-height: 90px;
+}
+#nav li a{
+    color: #666666;
+    font-weight: bold;
+}
+#nav li a:hover{
+    color: #00925F;
+}
+#nav .logo{
+    width: 400px;
+    height: 30px;
+    margin: 25px 20px 15px 200px;
+}
+#nav .logo img{
+    width: 185px;
+    height: 30px
+}

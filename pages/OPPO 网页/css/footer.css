@@ -1,0 +1,25 @@
+/* 页面底部样式 */
+#footer{
+    height: 40px;
+    background-color: #2d2d2d;
+}
+#footer p{
+    height: 40px;
+    line-height: 40px;
+}
+#footer p img{
+    width: 130px;
+    height: 20px;
+    margin: 0px 10px -5px 0px;
+}
+#footer p span{
+    color: #828282;
+    margin: 0px 300px 0px 20px;
+}
+#footer p a{
+    color: #ffffff;
+    margin: 0px 10px;
+}
+#footer p a:hover{
+    color: 00925F;
+}

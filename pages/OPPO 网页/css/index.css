@@ -1,0 +1,41 @@
+/* 主页样式 */
+*{
+    margin: 0;
+    padding: 0;
+}
+ol,ul{
+    /* 去掉列表标识 */
+    list-style-type: none;
+}
+a{
+    color: #666;
+    /* 去掉链接下划线 */
+    text-decoration: none;
+}
+/* 左浮动 */
+.left{
+    float: left;
+}
+/* 右浮动 */
+.right{
+    float: right;
+}
+
+/* 测试部分 */
+#top,#header,#nav,#banner,#star,#accessory,#world,#serve,#after_sale,#footer{
+    height: 100px;
+    width: 100%;
+    /* border: 1px solid #000; */
+}
+
+.container{
+    width: 1280px;
+    /* border: 1px solid red; */
+    margin: 0px auto;
+}
+
+/* 设置页面顶部的样式 */
+#top{
+    height: 5px;
+    background-color: #00925F;
+}
